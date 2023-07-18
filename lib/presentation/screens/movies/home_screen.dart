@@ -11,9 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Center(
-        child: Text(Environment.theMovieDbKey), //traemos la llave de la clase Environment q cree en config/constants
-      ),
+      body:  Placeholder(),
     );
   }
 }

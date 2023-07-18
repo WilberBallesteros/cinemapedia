@@ -6,7 +6,7 @@
 
 import 'package:cinemapedia/domain/entities/movie.dart';
 
-abstract class MovieDataSource {
+abstract class MoviesDataSource {
  //peliculas actualmente en cartelera
  Future<List<Movie>> getNowPlaying({ int page = 1 });
 }
