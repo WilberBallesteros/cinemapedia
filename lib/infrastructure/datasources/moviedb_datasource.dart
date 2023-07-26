@@ -4,6 +4,8 @@
 import 'package:cinemapedia/config/constants/environment.dart';
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemapedia/infrastructure/models/moviedb/moviedb_response.dart';
 import 'package:dio/dio.dart';
 
 class MoviedbDatasource extends MoviesDataSource {
@@ -25,7 +27,13 @@ class MoviedbDatasource extends MoviesDataSource {
     //aqui hacemos la implementacion
     final response = await dio.get('/movie/now_playing'); //Now Playing q viene de la documentacion, muestra 10 o 20 pelis
     
-    final List<Movie> movies = []; //listado de peliculas, Movie es la entidad la clase Movie
+    final movieDBResponse = MovieDbResponse.fromJson(response.data);
+    
+    final List<Movie> movies = movieDBResponse.results
+    .where((moviedb) => moviedb.posterPath != 'no-poster') //filtro y ya no sigue no regresa pelis cuyo poster ya no exista
+    .map(
+      (moviedb) => MovieMapper.movieDBToEntity(moviedb)
+      ).toList(); //listado de peliculas, Movie es la entidad la clase Movie
 
 
     return movies;
