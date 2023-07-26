@@ -24,6 +24,7 @@ class MoviedbDatasource extends MoviesDataSource {
 
     //aqui hacemos la implementacion
     final response = await dio.get('/movie/now_playing'); //Now Playing q viene de la documentacion, muestra 10 o 20 pelis
+    
     final List<Movie> movies = []; //listado de peliculas, Movie es la entidad la clase Movie
 
 
